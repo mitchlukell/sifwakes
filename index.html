@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Novel Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .title {
+            font-size: 3em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .author {
+            font-size: 1.1em;
+            color: #34495e;
+            margin-top: 15px;
+        }
+
+        .novel-content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+        }
+
+        .chapter-title {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 15px;
+        }
+
+        .novel-text {
+            font-size: 1.1em;
+            text-align: justify;
+            white-space: pre-wrap;
+            color: #2c3e50;
+        }
+
+        .paragraph {
+            margin-bottom: 20px;
+            text-indent: 2em;
+        }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .font-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .font-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .font-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .theme-toggle {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .dark-theme {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: #ecf0f1;
+        }
+
+        .dark-theme .header,
+        .dark-theme .novel-content,
+        .dark-theme .controls {
+            background: rgba(52, 73, 94, 0.9);
+            color: #ecf0f1;
+        }
+
+        .dark-theme .title,
+        .dark-theme .chapter-title,
+        .dark-theme .novel-text {
+            color: #ecf0f1;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(52, 152, 219, 0.3);
+            z-index: 1000;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2em;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .novel-content {
+                padding: 25px;
+            }
+            
+            .controls {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="controls">
+        <div class="font-controls">
+            <button class="font-btn" onclick="changeFontSize(-1)">A-</button>
+            <button class="font-btn" onclick="changeFontSize(1)">A+</button>
+            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="title">Your Novel Title</h1>
+            <p class="subtitle">A captivating story</p>
+            <p class="author">by Your Name</p>
+        </header>
+
+        <main class="novel-content">
+            <h2 class="chapter-title">Chapter 1</h2>
+            <div class="novel-text" id="novelText">
+                <div class="paragraph">
+                    Replace this text with your novel content. You can paste your entire novel here, and it will be displayed with proper formatting and readability features.
+                </div>
+                
+                <div class="paragraph">
+                    The website includes several reader-friendly features:
+                    - Adjustable font size with the A- and A+ buttons
+                    - Dark/light theme toggle with the moon button
+                    - Reading progress indicator at the top
+                    - Responsive design that works on all devices
+                    - Clean, distraction-free layout focused on your text
+                </div>
+
+                <div class="paragraph">
+                    To add your novel:
+                    1. Replace the title, subtitle, and author name in the header
+                    2. Replace this sample text with your actual novel content
+                    3. You can add chapter breaks by using the chapter-title class
+                    4. Each paragraph should be wrapped in a div with the "paragraph" class
+                </div>
+
+                <div class="paragraph">
+                    The design uses a classic serif font (Georgia) which is excellent for long-form reading, and the layout is optimized for readability with proper line spacing and text justification.
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let fontSize = 18;
+        let isDarkTheme = false;
+
+        function changeFontSize(delta) {
+            fontSize += delta * 2;
+            fontSize = Math.max(12, Math.min(24, fontSize));
+            document.getElementById('novelText').style.fontSize = fontSize + 'px';
+        }
+
+        function toggleTheme() {
+            isDarkTheme = !isDarkTheme;
+            document.body.classList.toggle('dark-theme', isDarkTheme);
+            
+            const themeButton = document.querySelector('.theme-toggle');
+            themeButton.textContent = isDarkTheme ? '☀️' : '🌙';
+        }
+
+        // Reading progress indicator
+        function updateProgress() {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            
+            document.getElementById('progressFill').style.width = scrollPercent + '%';
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        window.addEventListener('resize', updateProgress);
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>
